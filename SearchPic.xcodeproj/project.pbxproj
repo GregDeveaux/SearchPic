@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		BC21EA0D2A3DE676009BE426 /* SearchPicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA0C2A3DE676009BE426 /* SearchPicApp.swift */; };
-		BC21EA0F2A3DE676009BE426 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA0E2A3DE676009BE426 /* ContentView.swift */; };
+		BC21EA0F2A3DE676009BE426 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA0E2A3DE676009BE426 /* HomeView.swift */; };
 		BC21EA112A3DE677009BE426 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC21EA102A3DE677009BE426 /* Assets.xcassets */; };
 		BC21EA142A3DE677009BE426 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC21EA132A3DE677009BE426 /* Preview Assets.xcassets */; };
 		BC21EA1E2A3DE677009BE426 /* SearchPicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA1D2A3DE677009BE426 /* SearchPicTests.swift */; };
 		BC21EA282A3DE677009BE426 /* SearchPicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA272A3DE677009BE426 /* SearchPicUITests.swift */; };
 		BC21EA2A2A3DE677009BE426 /* SearchPicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA292A3DE677009BE426 /* SearchPicUITestsLaunchTests.swift */; };
+		BC21EA382A3DEED3009BE426 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA372A3DEED3009BE426 /* Color+Extensions.swift */; };
+		BC21EA3A2A3E05C3009BE426 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA392A3E05C3009BE426 /* HomeViewModel.swift */; };
+		BC561BF42A3E579800CDB883 /* Text+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BF32A3E579800CDB883 /* Text+Extensions.swift */; };
+		BC561BF82A3E66FC00CDB883 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BF72A3E66FC00CDB883 /* Picture.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,7 @@
 /* Begin PBXFileReference section */
 		BC21EA092A3DE676009BE426 /* SearchPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC21EA0C2A3DE676009BE426 /* SearchPicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPicApp.swift; sourceTree = "<group>"; };
-		BC21EA0E2A3DE676009BE426 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BC21EA0E2A3DE676009BE426 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BC21EA102A3DE677009BE426 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC21EA132A3DE677009BE426 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC21EA192A3DE677009BE426 /* SearchPicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchPicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +48,10 @@
 		BC21EA232A3DE677009BE426 /* SearchPicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SearchPicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC21EA272A3DE677009BE426 /* SearchPicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPicUITests.swift; sourceTree = "<group>"; };
 		BC21EA292A3DE677009BE426 /* SearchPicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPicUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BC21EA372A3DEED3009BE426 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		BC21EA392A3E05C3009BE426 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BC561BF32A3E579800CDB883 /* Text+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Extensions.swift"; sourceTree = "<group>"; };
+		BC561BF72A3E66FC00CDB883 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				BC21EA0C2A3DE676009BE426 /* SearchPicApp.swift */,
-				BC21EA0E2A3DE676009BE426 /* ContentView.swift */,
-				BC21EA102A3DE677009BE426 /* Assets.xcassets */,
+				BC561BF62A3E66E400CDB883 /* Model */,
+				BC21EA3B2A3E05F0009BE426 /* Home */,
+				BC21EA362A3DEE55009BE426 /* Components */,
 				BC21EA122A3DE677009BE426 /* Preview Content */,
 			);
 			path = SearchPic;
@@ -125,6 +134,41 @@
 				BC21EA292A3DE677009BE426 /* SearchPicUITestsLaunchTests.swift */,
 			);
 			path = SearchPicUITests;
+			sourceTree = "<group>";
+		};
+		BC21EA362A3DEE55009BE426 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				BC21EA102A3DE677009BE426 /* Assets.xcassets */,
+				BC561BF52A3E5E4E00CDB883 /* Chart */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		BC21EA3B2A3E05F0009BE426 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BC21EA0E2A3DE676009BE426 /* HomeView.swift */,
+				BC21EA392A3E05C3009BE426 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BC561BF52A3E5E4E00CDB883 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				BC21EA372A3DEED3009BE426 /* Color+Extensions.swift */,
+				BC561BF32A3E579800CDB883 /* Text+Extensions.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		BC561BF62A3E66E400CDB883 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC561BF72A3E66FC00CDB883 /* Picture.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +301,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC21EA0F2A3DE676009BE426 /* ContentView.swift in Sources */,
+				BC561BF82A3E66FC00CDB883 /* Picture.swift in Sources */,
+				BC561BF42A3E579800CDB883 /* Text+Extensions.swift in Sources */,
+				BC21EA0F2A3DE676009BE426 /* HomeView.swift in Sources */,
 				BC21EA0D2A3DE676009BE426 /* SearchPicApp.swift in Sources */,
+				BC21EA382A3DEED3009BE426 /* Color+Extensions.swift in Sources */,
+				BC21EA3A2A3E05C3009BE426 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

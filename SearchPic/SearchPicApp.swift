@@ -2,7 +2,7 @@
 //  SearchPicApp.swift
 //  SearchPic
 //
-//  Created by Greg-Mini on 17/06/2023.
+//  Created by Greg Deveaux on 17/06/2023.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct SearchPicApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
