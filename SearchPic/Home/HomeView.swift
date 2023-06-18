@@ -13,8 +13,8 @@ struct HomeView: View {
     @State var viewModel = HomeViewModel()
 
     let columns: [GridItem] = [
-        GridItem(.flexible(),
-                 spacing: 20),
+//        GridItem(.flexible(),
+//                 spacing: 20),
 //        GridItem(.flexible(),
 //                 spacing: 20),
         GridItem(.flexible(),
