@@ -22,17 +22,17 @@ struct Query: Codable {
 struct Picture: Codable {
     let id: String
     let description: String
-    let urls: [URL]
+    let urls: [UrlsImage]
 }
 
-struct URLImage: Codable {
-    let dowload: String
+struct UrlsImage: Codable {
+    let download: String
     let large: String
     let medium: String
     let small: String
 
     enum CodingKeys: String, CodingKey {
-        case dowload = "raw"
+        case download = "raw"
         case large = "regular"
         case medium = "small"
         case small = "thumb"
