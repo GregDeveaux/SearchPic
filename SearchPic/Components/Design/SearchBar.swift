@@ -11,6 +11,7 @@ struct SearchBar: View {
     @Environment(\.colorScheme) private var colorScheme
 
     @EnvironmentObject var viewModel: HomeViewModel
+    @State var searchWord: String
 
     var placeHolder = Text("Que cherches-tu comme photo ?").foregroundColor(.placeHolder)
 
@@ -20,14 +21,16 @@ struct SearchBar: View {
                 .padding(.leading, 20)
                 .padding(.trailing, -5)
                 .foregroundColor(.backgroundPrimary)
-            TextField("\(placeHolder)", text: $viewModel.searchText)
+            TextField("\(placeHolder)", text: $searchWord)
+                .font(.system(size: 15, weight: .medium))
                 .padding(10)
                 .foregroundColor(.backgroundPrimary)
                 .frame(height: 50)
                 .overlay(alignment: .trailing) {
-                    if !viewModel.searchText.isEmpty {
+                        // allows to reset the search word
+                    if !searchWord.isEmpty {
                         Button {
-                            viewModel.searchText = ""
+                            searchWord = ""
                         } label: {
                             Image(systemName: "multiply.circle.fill")
                                 .foregroundColor(.backgroundPrimary)
@@ -42,13 +45,7 @@ struct SearchBar: View {
                 // if check is validate, activate method
                 .onSubmit {
                     Task {
-                        do {
-                            let newPictures = try await viewModel.getPictures()
-                            viewModel.pictures.append(newPictures)
-                        }
-                        catch {
-                            print("🛑 HOME_VIEW_MODEL/GET_PICTURE: Error")
-                        }
+                        try await viewModel.searchPictures(with: searchWord)
                     }
                 }
         }
@@ -60,7 +57,7 @@ struct SearchBar: View {
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar()
+        SearchBar(searchWord: "plage")
             .environmentObject(HomeViewModel())
     }
 }

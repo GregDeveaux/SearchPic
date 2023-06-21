@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC05EBF22A4371BD004274AF /* PictureGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05EBF12A4371BD004274AF /* PictureGrid.swift */; };
 		BC05F8292A4021D200F2C041 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F8282A4021D200F2C041 /* SearchBar.swift */; };
 		BC05F82B2A4022E100F2C041 /* LogoSearchPic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC05F82A2A4022E100F2C041 /* LogoSearchPic.swift */; };
 		BC21EA0D2A3DE676009BE426 /* SearchPicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC21EA0C2A3DE676009BE426 /* SearchPicApp.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC05EBF12A4371BD004274AF /* PictureGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureGrid.swift; sourceTree = "<group>"; };
 		BC05F8282A4021D200F2C041 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		BC05F82A2A4022E100F2C041 /* LogoSearchPic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSearchPic.swift; sourceTree = "<group>"; };
 		BC21EA092A3DE676009BE426 /* SearchPic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchPic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,7 @@
 				BC05F82A2A4022E100F2C041 /* LogoSearchPic.swift */,
 				BC05F8282A4021D200F2C041 /* SearchBar.swift */,
 				BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */,
+				BC05EBF12A4371BD004274AF /* PictureGrid.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -175,8 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				BC21EA0E2A3DE676009BE426 /* HomeView.swift */,
-				BC9C781A2A417F1500090354 /* PictureDetailsView.swift */,
 				BC21EA392A3E05C3009BE426 /* HomeViewModel.swift */,
+				BC9C781A2A417F1500090354 /* PictureDetailsView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				BC05F8292A4021D200F2C041 /* SearchBar.swift in Sources */,
 				BC21EA0F2A3DE676009BE426 /* HomeView.swift in Sources */,
 				BC561BFF2A3FC52700CDB883 /* SearchPictureError.swift in Sources */,
+				BC05EBF22A4371BD004274AF /* PictureGrid.swift in Sources */,
 				BC9C781B2A417F1500090354 /* PictureDetailsView.swift in Sources */,
 				BC21EA0D2A3DE676009BE426 /* SearchPicApp.swift in Sources */,
 				BC21EA382A3DEED3009BE426 /* Color+Extensions.swift in Sources */,

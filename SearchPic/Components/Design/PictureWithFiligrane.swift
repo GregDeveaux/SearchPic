@@ -30,7 +30,6 @@ struct PictureWithFiligrane: View {
                 .cornerRadius(10)
                 .position(x: screenSize.width / 2, y: screenSize.height / 2)
 
-
         }
         .overlay {
             LogoSearchPic(size: 60, trackingFont: 1)

@@ -12,17 +12,8 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     @State var logoSize: CGFloat = 50
 
-    let columns: [GridItem] = [
-//        GridItem(.flexible(),
-//                 spacing: 20),
-//        GridItem(.flexible(),
-//                 spacing: 20),
-        GridItem(.flexible(),
-                 spacing: 20)
-    ]
-
     var body: some View {
-         // allow to know the screenSize of the iPhone
+         // allows to know the screenSize of the iPhone
         GeometryReader { proxy in
 
             let screenSize = proxy.size
@@ -34,8 +25,9 @@ struct HomeView: View {
 
                     VStack {
                         LogoSearchPic(size: logoSize, trackingFont: 1)
+
                         HStack {
-                            SearchBar()
+                            SearchBar(searchWord: viewModel.searchText)
                                 .environmentObject(viewModel)
                             Button {
                                 print("change")
@@ -49,37 +41,19 @@ struct HomeView: View {
                         }
                         Text(viewModel.searchText)
 
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 15) {
-                                ForEach(Picture.examples.enumerated().map({ $0}), id: \.element.id) { index, picture in
-                                    NavigationLink {
-                                        PictureDetailsView(picture: picture)
-                                    } label: {
-                                        AsyncImage(url: URL(string: picture.urls.largeSize)) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: screenSize.width, height: screenSize.height / 3, alignment: .center)
-                                                .cornerRadius(10)
-                                                .offset(y: 35)
-
-                                        } placeholder: {
-                                            ProgressView()
-                                                .frame(width: screenSize.width, height: screenSize.height / 3, alignment: .center)
-                                                .background(Color.backgroundSecondary)
-                                                .tint(Color.backgroundPrimary)
-                                                .cornerRadius(10)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .mask(LinearGradient(gradient: Gradient(colors: [.clear,.black,.black,.black,.black,.black,.black,.black,.black,.black, .black, .clear]), startPoint: .top, endPoint: .bottom))
-                        .padding(.top, -25)
-                        .padding(.bottom, -10)
+                        PictureGrid(screenSize: screenSize, columnsNumber: 1, pictures: viewModel.pictures)
+                            .environmentObject(viewModel)
                     }
                     .padding()
                 }
+            }
+            .onAppear{
+                Task {
+                    if let search = viewModel.randomSearchAtLaunchApp.randomElement() {
+                        try await viewModel.searchPictures(with: search)
+                    }
+                }
+                print("✅ HOME_VIEW/ON_APPEAR: that's first random pictures")
             }
         }
     }
@@ -91,5 +65,3 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(HomeViewModel())
     }
 }
-
-

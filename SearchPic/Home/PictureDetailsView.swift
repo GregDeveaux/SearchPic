@@ -30,20 +30,20 @@ struct PictureDetailsView: View {
                     Button {
                             // allow to reate a snapshot of image and save it
                         let renderer = ImageRenderer(content: pictureWithFiligrane)
-                        guard let image = renderer.uiImage else { return }
-                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                        let _ = DispatchQueue.main.async {
+                            guard let image = renderer.uiImage else { return }
+                            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                        }
                         print("✅ PICTURE_DETAILS_VIEW/SAVE_PICTURE: the image is saved")
                     }  label: {
                         Label("Enregistrer", systemImage: "photo")
                             .padding(10)
-                            .frame(width: .infinity)
                     }
 
                         // allow to share the picture link into max size
                     ShareLink(item: picture.urls.download) {
                         Label("Partager", systemImage:  "square.and.arrow.up")
                             .padding(10)
-                            .frame(width: .infinity)
                     }
 
                 }
