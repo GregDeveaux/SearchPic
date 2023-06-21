@@ -10,12 +10,18 @@ import SwiftUI
 struct LogoSearchPic: View {
     @Environment(\.colorScheme) private var colorScheme
 
+    var size: CGFloat
+        // modify tracking for animation
+    var trackingFont: CGFloat
+
     var body: some View {
         HStack(spacing: 20){
             Text
-                .fontLogo(text: "SEARCH", rotationAxisY: -1)
+                .fontLogo(text: "SEARCH", rotationAxisY: -1, size: size)
+                .tracking(trackingFont)
+
             Text
-                .fontLogo(text: "PIC", rotationAxisY: 1)
+                .fontLogo(text: "PIC", rotationAxisY: 1, size: size)
                 .foregroundColor(.backgroundSecondary)
                 .overlay {
                     Circle()
@@ -26,12 +32,11 @@ struct LogoSearchPic: View {
                 }
         }
         .offset(x: -15)
-        .padding(.top, 25)
     }
 }
 
 struct LogoSearchPic_Previews: PreviewProvider {
     static var previews: some View {
-        LogoSearchPic()
+        LogoSearchPic(size: 50, trackingFont: 10)
     }
 }

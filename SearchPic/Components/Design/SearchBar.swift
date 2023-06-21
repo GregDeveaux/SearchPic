@@ -54,11 +54,11 @@ struct SearchBar: View {
         }
         .background(colorScheme == .light ? Color.black : Color.fluo)
         .cornerRadius(15)
-        .padding([.leading,.trailing], 30)
+        .padding([.leading,.trailing], 20)
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
         SearchBar()
             .environmentObject(HomeViewModel())

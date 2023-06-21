@@ -22,6 +22,8 @@
 		BC561BF82A3E66FC00CDB883 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BF72A3E66FC00CDB883 /* Picture.swift */; };
 		BC561BFA2A3EF01E00CDB883 /* API_unsplashPicturesPlage.json in Resources */ = {isa = PBXBuildFile; fileRef = BC561BF92A3EF01E00CDB883 /* API_unsplashPicturesPlage.json */; };
 		BC561BFF2A3FC52700CDB883 /* SearchPictureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BFE2A3FC52700CDB883 /* SearchPictureError.swift */; };
+		BC949C8E2A42538000B6AB0F /* PictureWithFiligrane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */; };
+		BC9C781B2A417F1500090354 /* PictureDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9C781A2A417F1500090354 /* PictureDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,9 @@
 		BC561BF72A3E66FC00CDB883 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		BC561BF92A3EF01E00CDB883 /* API_unsplashPicturesPlage.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API_unsplashPicturesPlage.json; sourceTree = "<group>"; };
 		BC561BFE2A3FC52700CDB883 /* SearchPictureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPictureError.swift; sourceTree = "<group>"; };
+		BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWithFiligrane.swift; sourceTree = "<group>"; };
+		BC949C8F2A42679D00B6AB0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BC9C781A2A417F1500090354 /* PictureDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +97,7 @@
 			children = (
 				BC05F82A2A4022E100F2C041 /* LogoSearchPic.swift */,
 				BC05F8282A4021D200F2C041 /* SearchBar.swift */,
+				BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */,
 			);
 			path = Design;
 			sourceTree = "<group>";
@@ -119,6 +125,7 @@
 		BC21EA0B2A3DE676009BE426 /* SearchPic */ = {
 			isa = PBXGroup;
 			children = (
+				BC949C8F2A42679D00B6AB0F /* Info.plist */,
 				BC21EA0C2A3DE676009BE426 /* SearchPicApp.swift */,
 				BC561BF62A3E66E400CDB883 /* Model */,
 				BC21EA3B2A3E05F0009BE426 /* Home */,
@@ -159,6 +166,7 @@
 			children = (
 				BC21EA102A3DE677009BE426 /* Assets.xcassets */,
 				BC561BF52A3E5E4E00CDB883 /* Chart */,
+				BC05F82C2A40231100F2C041 /* Design */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -167,8 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				BC21EA0E2A3DE676009BE426 /* HomeView.swift */,
+				BC9C781A2A417F1500090354 /* PictureDetailsView.swift */,
 				BC21EA392A3E05C3009BE426 /* HomeViewModel.swift */,
-				BC05F82C2A40231100F2C041 /* Design */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -328,9 +336,11 @@
 				BC05F8292A4021D200F2C041 /* SearchBar.swift in Sources */,
 				BC21EA0F2A3DE676009BE426 /* HomeView.swift in Sources */,
 				BC561BFF2A3FC52700CDB883 /* SearchPictureError.swift in Sources */,
+				BC9C781B2A417F1500090354 /* PictureDetailsView.swift in Sources */,
 				BC21EA0D2A3DE676009BE426 /* SearchPicApp.swift in Sources */,
 				BC21EA382A3DEED3009BE426 /* Color+Extensions.swift in Sources */,
 				BC21EA3A2A3E05C3009BE426 /* HomeViewModel.swift in Sources */,
+				BC949C8E2A42538000B6AB0F /* PictureWithFiligrane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +502,8 @@
 				DEVELOPMENT_TEAM = 9MRD2CZ6V7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SearchPic/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Voulez-vous sauvegarder votre image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -521,6 +533,8 @@
 				DEVELOPMENT_TEAM = 9MRD2CZ6V7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SearchPic/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Voulez-vous sauvegarder votre image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
