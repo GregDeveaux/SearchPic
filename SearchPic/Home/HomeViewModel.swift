@@ -23,28 +23,7 @@ class HomeViewModel: ObservableObject {
         // MARK: - search pictures with word
     func searchPictures(with word: String) async throws {
 
-            // create the url for the word
-        var url: URL {
-            var components = URLComponents()
-            components.scheme = "https"
-            components.host = "api.unsplash.com"
-            components.path = "/search/photos"
-            components.queryItems = [
-                URLQueryItem(name: "page", value: "\(page)"),
-                URLQueryItem(name: "lang", value: "fr"),
-                URLQueryItem(name: "query", value: "\(word)"),
-                URLQueryItem(name: "client_id", value: "zQzGRjojH3JNE-S9qLgcGmfzvZbp9NrT6ZlzqXKny6c")
-            ]
-
-            guard let url = components.url else {
-                preconditionFailure("🛑 HOME_VIEW_MODEL/GET_PICTURE: \(SearchPictureError.invalidUrl)")
-            }
-
-            print("✅ HOME_VIEW_MODEL/GET_PICTURE: the search word is: \(word)")
-            print("✅ HOME_VIEW_MODEL/GET_PICTURE: the url used to search pictures is: \(url)")
-
-            return url
-        }
+        let url = createUrl(with: word)
 
         let (data, response) = try await URLSession.shared.data(from: url)
 
@@ -66,6 +45,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
+        // MARK: - adds the images in the list
     @MainActor
     func saveThePictures(query: Query) {
         for result in query.results {
@@ -74,5 +54,28 @@ class HomeViewModel: ObservableObject {
         }
         print ("✅ HOME_VIEW_MODEL/GET_PICTURE: there is \(self.pictures.count) pictures founded")
         dump(self.pictures)
+    }
+
+        // create the url for the word
+    func createUrl(with word: String) -> URL {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.unsplash.com"
+        components.path = "/search/photos"
+        components.queryItems = [
+            URLQueryItem(name: "page", value: "\(page)"),
+            URLQueryItem(name: "lang", value: "fr"),
+            URLQueryItem(name: "query", value: "\(word)"),
+            URLQueryItem(name: "client_id", value: "zQzGRjojH3JNE-S9qLgcGmfzvZbp9NrT6ZlzqXKny6c")
+        ]
+
+        guard let url = components.url else {
+            preconditionFailure("🛑 HOME_VIEW_MODEL/GET_PICTURE: \(SearchPictureError.invalidUrl)")
+        }
+
+        print("✅ HOME_VIEW_MODEL/GET_PICTURE: the search word is: \(word)")
+        print("✅ HOME_VIEW_MODEL/GET_PICTURE: the url used to search pictures is: \(url)")
+
+        return url
     }
 }

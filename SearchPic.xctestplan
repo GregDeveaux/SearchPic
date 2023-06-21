@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "1C8B3EE4-BEF6-4160-899C-60A379B64D0F",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:SearchPic.xcodeproj",
+      "identifier" : "BC21EA082A3DE676009BE426",
+      "name" : "SearchPic"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SearchPic.xcodeproj",
+        "identifier" : "BC21EA182A3DE677009BE426",
+        "name" : "SearchPicTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:SearchPic.xcodeproj",
+        "identifier" : "BC21EA222A3DE677009BE426",
+        "name" : "SearchPicUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
