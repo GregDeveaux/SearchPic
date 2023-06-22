@@ -27,7 +27,7 @@ struct HomeView: View {
                         LogoSearchPic(size: logoSize, trackingFont: 1)
 
                         HStack {
-                            SearchBar(searchWord: viewModel.searchText)
+                            SearchBar(searchWord: viewModel.searchWord)
                                 .environmentObject(viewModel)
                             Button {
                                 print("change")
@@ -37,9 +37,8 @@ struct HomeView: View {
                                         .frame(width: 50, height: 50)
                                         .foregroundColor(.black)
                             }
-
                         }
-                        Text(viewModel.searchText)
+                        Text(viewModel.searchWord)
 
                         PictureGrid(screenSize: screenSize, columnsNumber: 1, pictures: viewModel.pictures)
                             .environmentObject(viewModel)
@@ -49,8 +48,9 @@ struct HomeView: View {
             }
             .onAppear{
                 Task {
-                    if let search = viewModel.randomSearchAtLaunchApp.randomElement() {
-                        try await viewModel.searchPictures(with: search)
+                    if let searchWord = viewModel.randomSearchAtLaunchApp.randomElement() {
+                        try await viewModel.searchPictures(with: searchWord)
+                        viewModel.searchWord = searchWord
                     }
                 }
                 print("✅ HOME_VIEW/ON_APPEAR: that's first random pictures")

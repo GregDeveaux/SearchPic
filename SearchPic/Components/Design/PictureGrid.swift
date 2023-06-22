@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PictureGrid: View {
+    @EnvironmentObject var viewModel: HomeViewModel
 
     var screenSize: CGSize
 
@@ -42,6 +43,11 @@ struct PictureGrid: View {
                                 .background(Color.backgroundSecondary)
                                 .tint(Color.backgroundPrimary)
                                 .cornerRadius(10)
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            try await viewModel.getOtherPicturesPages(currentIndexPicture: index)
                         }
                     }
                 }

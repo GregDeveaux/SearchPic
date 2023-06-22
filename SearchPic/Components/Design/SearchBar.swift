@@ -41,10 +41,11 @@ struct SearchBar: View {
                 // modify action button on the keyboard
                 .submitLabel(.search)
                 // check the textfield is not empty
-                .submitScope(!viewModel.searchText.isEmpty)
+                .submitScope(!viewModel.searchWord.isEmpty)
                 // if check is validate, activate method
                 .onSubmit {
                     Task {
+                        viewModel.pictures.removeAll()
                         try await viewModel.searchPictures(with: searchWord)
                     }
                 }

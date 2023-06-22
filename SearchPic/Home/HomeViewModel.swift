@@ -10,15 +10,16 @@ import Foundation
 class HomeViewModel: ObservableObject {
 
         // MARK: - wrapper properties
-    @Published var searchText: String = ""
+    @Published var searchWord: String = ""
     @Published var pictures: [Picture] = []
 
         // allows to have pictures at launch app chosen random in this list (into French 🇫🇷)
     @Published var randomSearchAtLaunchApp: [String] = ["code", "plage", "disque vinyle", "basketball", "licorne", "chat", "chien", "dragon", "boombox"]
 
-        // number of picture page
-    @Published var page: Int = 1
-    
+        // page number for the pictures group
+    @Published var currentPageAPI: Int = 1
+    @Published var pictureNumberPerPage: Int = 10
+    @Published var numberTotalPictureDisplayed: Int = 1
 
         // MARK: - search pictures with word
     func searchPictures(with word: String) async throws {
@@ -56,6 +57,19 @@ class HomeViewModel: ObservableObject {
         dump(self.pictures)
     }
 
+    @MainActor
+    func getOtherPicturesPages(currentIndexPicture: Int) async throws {
+        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 📑 Current Page API unsplash -> \(currentPageAPI)")
+        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 🌆 Current number of series -> \(currentIndexPicture)")
+
+        if currentIndexPicture == pictureNumberPerPage - 3 {
+            currentPageAPI += 1
+            pictureNumberPerPage += 10
+            try await searchPictures(with: searchWord)
+            print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 📑🌆 Current picture number max before reload the new pictures of the word -> \(pictureNumberPerPage)")
+        }
+    }
+
         // create the url for the word
     func createUrl(with word: String) -> URL {
         var components = URLComponents()
@@ -63,7 +77,7 @@ class HomeViewModel: ObservableObject {
         components.host = "api.unsplash.com"
         components.path = "/search/photos"
         components.queryItems = [
-            URLQueryItem(name: "page", value: "\(page)"),
+            URLQueryItem(name: "page", value: "\(currentPageAPI)"),
             URLQueryItem(name: "lang", value: "fr"),
             URLQueryItem(name: "query", value: "\(word)"),
             URLQueryItem(name: "client_id", value: "zQzGRjojH3JNE-S9qLgcGmfzvZbp9NrT6ZlzqXKny6c")
