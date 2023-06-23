@@ -11,11 +11,11 @@ struct LogoSearchPic: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var size: CGFloat
-        // modify tracking for animation
-    var trackingFont: CGFloat
+        // allows to modify tracking for animation
+    @Binding var trackingFont: CGFloat
 
     var body: some View {
-        HStack(spacing: 20){
+        HStack(spacing: 20) {
             Text
                 .fontLogo(text: "SEARCH", rotationAxisY: -1, size: size)
                 .tracking(trackingFont)
@@ -26,9 +26,10 @@ struct LogoSearchPic: View {
                 .overlay {
                     Circle()
                         .stroke(Color.backgroundSecondary, lineWidth: colorScheme == .light ? 9 : 7)
-                        .background(Circle().fill(Color.backgroundPrimary))
+                        .background(Color.backgroundPrimary,
+                                    in: Circle())
                         .frame(width: 50)
-                        .offset(x: -1.5, y: -48)
+                        .offset(x: -1.5, y: -46)
                 }
         }
         .offset(x: -15)
@@ -37,6 +38,6 @@ struct LogoSearchPic: View {
 
 struct LogoSearchPic_Previews: PreviewProvider {
     static var previews: some View {
-        LogoSearchPic(size: 50, trackingFont: 10)
+        LogoSearchPic(size: 50, trackingFont: .constant(10))
     }
 }

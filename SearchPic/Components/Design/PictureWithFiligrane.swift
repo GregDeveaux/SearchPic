@@ -10,7 +10,8 @@ import SwiftUI
 struct PictureWithFiligrane: View {
     @Environment(\.colorScheme) private var colorScheme
 
-    var screenSize: CGSize
+    @State private var trackingFont: CGFloat = 1
+
     var pictureUrl: String
 
     var body: some View {
@@ -18,23 +19,19 @@ struct PictureWithFiligrane: View {
             image
                 .resizable()
                 .scaledToFill()
-                .frame(width: screenSize.width / 1.2, height: screenSize.height / 1.2)
+                .frame(width: UIScreen.main.bounds.width - 30, height: 500, alignment: .center)
                 .cornerRadius(10)
-                .position(x: screenSize.width / 2, y: screenSize.height / 2)
 
         } placeholder: {
             ProgressView()
-                .frame(width: screenSize.width / 1.2, height: screenSize.height / 1.2)
                 .background(Color.backgroundSecondary)
                 .tint(Color.backgroundPrimary)
                 .cornerRadius(10)
-                .position(x: screenSize.width / 2, y: screenSize.height / 2)
-
         }
-        .overlay {
-            LogoSearchPic(size: 60, trackingFont: 1)
-                .scaleEffect(0.3)
-                .offset(x: screenSize.width * 0.25, y: screenSize.height * 0.38)
+        .overlay(alignment: .bottom) {
+            LogoSearchPic(size: 50, trackingFont: $trackingFont)
+                .scaleEffect(0.30)
+                .offset(x: 120, y: 0)
                 .blendMode(colorScheme == .light ? .colorBurn : .colorDodge)
         }
     }
@@ -42,6 +39,6 @@ struct PictureWithFiligrane: View {
 
 struct PictureFiligraneView_Previews: PreviewProvider {
     static var previews: some View {
-        PictureWithFiligrane(screenSize: CGSize(width: 415, height: 800), pictureUrl: Picture.examples[1].urls.largeSize)
+        PictureWithFiligrane(pictureUrl: Picture.examples[1].urls.largeSize)
     }
 }

@@ -13,7 +13,7 @@ struct SearchBar: View {
     @EnvironmentObject var viewModel: HomeViewModel
     @State var searchWord: String
 
-    var placeHolder = Text("Que cherches-tu comme photo ?").foregroundColor(.placeHolder)
+    var placeHolder = Text("Que cherches-tu ?").foregroundColor(.placeHolder)
 
     var body: some View {
         HStack{
@@ -21,6 +21,7 @@ struct SearchBar: View {
                 .padding(.leading, 20)
                 .padding(.trailing, -5)
                 .foregroundColor(.backgroundPrimary)
+
             TextField("\(placeHolder)", text: $searchWord)
                 .font(.system(size: 15, weight: .medium))
                 .padding(10)
@@ -38,21 +39,22 @@ struct SearchBar: View {
                         }
                     }
                 }
-                // modify action button on the keyboard
-                .submitLabel(.search)
-                // check the textfield is not empty
-                .submitScope(!viewModel.searchWord.isEmpty)
-                // if check is validate, activate method
-                .onSubmit {
-                    Task {
-                        viewModel.pictures.removeAll()
-                        try await viewModel.searchPictures(with: searchWord)
-                    }
-                }
+        }
+            // modify action button on the keyboard
+        .submitLabel(.search)
+            // check the textfield is empty
+        .submitScope(searchWord.isEmpty)
+            // if check is validate, activate method
+        .onSubmit {
+            viewModel.searchWord = searchWord
+            Task {
+                viewModel.pictures.removeAll()
+                try await viewModel.searchPictures(with: searchWord)
+            }
+            print("✅ SEARCH_BAR/ON_SUBMIT: change the seach word \(searchWord) ")
         }
         .background(colorScheme == .light ? Color.black : Color.fluo)
         .cornerRadius(15)
-        .padding([.leading,.trailing], 20)
     }
 }
 

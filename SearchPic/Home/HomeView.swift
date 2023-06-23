@@ -8,54 +8,56 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.colorScheme) var colorScheme
 
     @StateObject var viewModel = HomeViewModel()
-    @State var logoSize: CGFloat = 50
+    @State private var logoSize: CGFloat = 50
+
+    @State private var trackingFont: CGFloat = 1
+    @State private var isValidateKeyword: Bool = false
 
     var body: some View {
-         // allows to know the screenSize of the iPhone
-        GeometryReader { proxy in
 
-            let screenSize = proxy.size
+        NavigationView {
 
-            NavigationView {
-                ZStack{
-                    Color.backgroundPrimary
-                        .ignoresSafeArea()
+            ZStack{
+                Color.backgroundPrimary
+                    .ignoresSafeArea()
 
                     VStack {
-                        LogoSearchPic(size: logoSize, trackingFont: 1)
+                        LogoSearchPic(size: logoSize,
+                                      trackingFont: $trackingFont)
+                        .padding(.top, 40)
+                        .padding(.bottom, 5)
+                        .animation(.easeInOut(duration: 2), value: isValidateKeyword)
 
                         HStack {
                             SearchBar(searchWord: viewModel.searchWord)
                                 .environmentObject(viewModel)
-                            Button {
-                                print("change")
-                            } label: {
-                                Image(systemName: "rectangle.grid.2x2.fill")
-                                    .resizable()
-                                        .frame(width: 50, height: 50)
-                                        .foregroundColor(.black)
-                            }
+                            ButtonNumberColumns()
+                                .environmentObject(viewModel)
                         }
-                        Text(viewModel.searchWord)
+                        .padding()
 
-                        PictureGrid(screenSize: screenSize, columnsNumber: 1, pictures: viewModel.pictures)
-                            .environmentObject(viewModel)
+                        PictureGrid(columns: viewModel.columns,
+                                    pictures: viewModel.pictures)
+                        .padding([.leading, .trailing])
+                        .environmentObject(viewModel)
                     }
-                    .padding()
-                }
             }
             .onAppear{
+                viewModel.numberOfColumns(1)
                 Task {
                     if let searchWord = viewModel.randomSearchAtLaunchApp.randomElement() {
                         try await viewModel.searchPictures(with: searchWord)
                         viewModel.searchWord = searchWord
+                        isValidateKeyword.toggle()
                     }
                 }
                 print("✅ HOME_VIEW/ON_APPEAR: that's first random pictures")
             }
         }
+        .accentColor(colorScheme == .light ? .black : .fluo)
     }
 }
 

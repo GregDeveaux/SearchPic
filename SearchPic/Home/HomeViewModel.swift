@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class HomeViewModel: ObservableObject {
 
@@ -19,12 +20,23 @@ class HomeViewModel: ObservableObject {
         // page number for the pictures group
     @Published var currentPageAPI: Int = 1
     @Published var pictureNumberPerPage: Int = 10
-    @Published var numberTotalPictureDisplayed: Int = 1
+    @Published var numberTotalOfPicturesPossible: Int = 1
 
-        // MARK: - search pictures with word
-    func searchPictures(with word: String) async throws {
+    @Published var numberOfColumns: Int = 1
+    @Published var columns: [GridItem] = []
 
-        let url = createUrl(with: word)
+
+        //MARK: - property
+        // uses to change columns number of the grid
+    let gridItem = GridItem(.flexible(),spacing: 20)
+
+
+        // MARK: - searchPictures
+        /// Description: Allows to search whole pictures with keyword
+        /// - Parameter word: word indicates in the seachBar
+    func searchPictures(with keyWord: String) async throws {
+
+        let url = createUrl(with: keyWord)
 
         let (data, response) = try await URLSession.shared.data(from: url)
 
@@ -46,23 +58,30 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-        // MARK: - adds the images in the list
+
+        // MARK: - saveThePictures
     @MainActor
+        /// Description: Allows to save, in the main thread, the found pictures in the array for the scrollView
+        /// - Parameter query: results found in the func searchPictures(with: "")
     func saveThePictures(query: Query) {
         for result in query.results {
-            let picture = Picture(id: result.id, description: result.description, urls: result.urls)
+            let picture = Picture(id: result.id, description: result.description, user: .init(name: result.user.name), urls: result.urls)
             self.pictures.append(picture)
         }
         print ("✅ HOME_VIEW_MODEL/GET_PICTURE: there is \(self.pictures.count) pictures founded")
         dump(self.pictures)
     }
 
-    @MainActor
-    func getOtherPicturesPages(currentIndexPicture: Int) async throws {
-        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 📑 Current Page API unsplash -> \(currentPageAPI)")
-        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 🌆 Current number of series -> \(currentIndexPicture)")
 
-        if currentIndexPicture == pictureNumberPerPage - 3 {
+        // MARK: - getOtherPicturesPages
+    @MainActor
+        /// Description: Allows to retrieve the other pictures after the next page API in the main thread
+        /// - Parameter currentIndexPictureDisplayed: number of current index of the picture in the list
+    func getOtherPicturesPages(currentIndexPictureDisplayed: Int) async throws {
+        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 📑 Current Page API unsplash -> \(currentPageAPI)")
+        print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 🌆 Current number of series -> \(currentIndexPictureDisplayed)")
+
+        if currentIndexPictureDisplayed == pictureNumberPerPage - 3 {
             currentPageAPI += 1
             pictureNumberPerPage += 10
             try await searchPictures(with: searchWord)
@@ -70,7 +89,11 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-        // create the url for the word
+
+        // MARK: - createUrl
+        /// Description: Allows to create the url of the API for the keyword writted
+        /// - Parameter word: keyword seached
+        /// - Returns: url of API Unsplash
     func createUrl(with word: String) -> URL {
         var components = URLComponents()
         components.scheme = "https"
@@ -91,5 +114,19 @@ class HomeViewModel: ObservableObject {
         print("✅ HOME_VIEW_MODEL/GET_PICTURE: the url used to search pictures is: \(url)")
 
         return url
+    }
+
+
+        // MARK: - numberOfColumns
+        /// Description: Allows to change the presentation of the pictures grid
+        /// - Parameter number: number of columns that we wish to show
+    func numberOfColumns(_ number: Int) {
+        columns.removeAll()
+
+        numberOfColumns = number
+
+        columns.append(contentsOf: repeatElement(gridItem, count: numberOfColumns))
+        
+        print("✅ HOME_VIEW/ON_APPEAR: change the number of columns at \(numberOfColumns) ")
     }
 }

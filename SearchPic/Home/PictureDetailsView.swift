@@ -14,21 +14,41 @@ struct PictureDetailsView: View {
     var picture: Picture
 
     var body: some View {
-        GeometryReader { proxy in
 
-            let screenSize = proxy.size
-            let pictureWithFiligrane = PictureWithFiligrane(screenSize: screenSize, pictureUrl: picture.urls.largeSize)
+        let pictureWithFiligrane = PictureWithFiligrane(pictureUrl: picture.urls.largeSize)
+
+        ZStack {
+            Color.backgroundPrimary
+                .ignoresSafeArea()
 
             VStack {
-                Text(picture.description ?? "")
-                    .font(.system(size: 15, weight: .medium))
-                    .padding([.trailing, .leading], 35)
+
+                Spacer()
 
                 pictureWithFiligrane
+                    .padding()
 
-                HStack(spacing: 30) {
+                HStack {
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(width: 1, height: 100, alignment: .leading)
+                        .padding(10)
+
+                    VStack(alignment: .leading) {
+                        Text(picture.description ?? "")
+                            .font(.system(size: 15, weight: .medium))
+
+                        Text("@\(picture.user.name ?? "")")
+                            .font(.system(size: 13, weight: .regular))
+                            .italic()
+                            .padding(.top, 5)
+                    }
+                }
+
+                Spacer()
+
+                HStack(spacing: 20) {
                     Button {
-                            // allow to reate a snapshot of image and save it
+                            // allows to reate a snapshot of image and save it
                         let renderer = ImageRenderer(content: pictureWithFiligrane)
                         let _ = DispatchQueue.main.async {
                             guard let image = renderer.uiImage else { return }
@@ -37,13 +57,13 @@ struct PictureDetailsView: View {
                         print("✅ PICTURE_DETAILS_VIEW/SAVE_PICTURE: the image is saved")
                     }  label: {
                         Label("Enregistrer", systemImage: "photo")
-                            .padding(10)
+                            .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 50)
                     }
 
-                        // allow to share the picture link into max size
+                        // allows to share the picture link into max size
                     ShareLink(item: picture.urls.download) {
                         Label("Partager", systemImage:  "square.and.arrow.up")
-                            .padding(10)
+                            .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 50)
                     }
 
                 }
@@ -51,10 +71,7 @@ struct PictureDetailsView: View {
                 .buttonStyle(.borderedProminent)
                 .foregroundColor(.backgroundPrimary)
                 .tint(colorScheme == .light ? Color.black : Color.fluo)
-            }
-            .background {
-                Color.backgroundPrimary
-                    .ignoresSafeArea()
+                .padding()
             }
         }
     }
