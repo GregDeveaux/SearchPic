@@ -34,32 +34,65 @@ final class SearchPicTests: XCTestCase {
         URLProtocol.unregisterClass(MockURLProtocol.self)
     }
 
-    func test_GivenTheGoodURLRequestOfGoogleBookIdAPI_ThenTheGenerationOftheURLIsOk() throws {
+    func test_GivenTheGoodURLRequestOfUnsplashAPI_ThenTheGenerationOftheURLIsOk() throws {
 
         let urlEndpoint = viewModel?.createUrl(with: "plage")
 
         XCTAssertEqual(urlEndpoint, apiURL)
     }
 
-
     func test_SearchPlageWithGoodMockData() throws {
-            // Given
-        expectation = expectation(description: "Expectation")
+            // When
+        baseQuery(data: MockResponseData.unsplashCorrectData, response: MockResponseData.responseOK)
 
-            //When
-        let data = MockResponseData.unsplashCorrectData
-
-        MockURLProtocol.requestHandler = { request in
-            let response = MockResponseData.responseOK
-            return (response, data)
-        }
-            //Then
+            // Then
         Task {
             try await viewModel?.searchPictures(with: "plage")
+
+            let picture = viewModel?.pictures[1]
+
+            XCTAssertNotNil(viewModel?.pictures)
+            XCTAssertEqual(viewModel?.pictures.count, 10)
+
+            XCTAssertEqual(picture?.id, "KMn4VEeEPR8")
+            XCTAssertEqual(picture?.description, "The last night of a two week stay on the North Shore of Oahu, Hawaii.")
+            XCTAssertEqual(picture?.user.name, "Sean Oulashin")
+
+            XCTAssertEqual(picture?.urls.download, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=M3w0NjI4NDV8MHwxfHNlYXJjaHwyfHxwbGFnZXxmcnwwfHx8fDE2ODcxMjM3MjR8MA&ixlib=rb-4.0.3")
+            XCTAssertEqual(picture?.urls.largeSize, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NjI4NDV8MHwxfHNlYXJjaHwyfHxwbGFnZXxmcnwwfHx8fDE2ODcxMjM3MjR8MA&ixlib=rb-4.0.3&q=80&w=1080")
+            XCTAssertEqual(picture?.urls.mediumSize, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NjI4NDV8MHwxfHNlYXJjaHwyfHxwbGFnZXxmcnwwfHx8fDE2ODcxMjM3MjR8MA&ixlib=rb-4.0.3&q=80&w=400")
+            XCTAssertEqual(picture?.urls.smallSize, "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NjI4NDV8MHwxfHNlYXJjaHwyfHxwbGFnZXxmcnwwfHx8fDE2ODcxMjM3MjR8MA&ixlib=rb-4.0.3&q=80&w=200")
             self.expectation.fulfill()
         }
-        XCTAssertNotNil(viewModel?.pictures)
         wait(for: [expectation], timeout: 10.0)
+    }
+
+//    func test_SearchPlage_WhenINotRecoverAStatusCode500_ThenMyResponseFailed() throws {
+//            // When
+//        baseQuery(data: MockResponseData.unsplashCorrectData, response: MockResponseData.responseFailed)
+//
+//            // Then
+//        Task {
+//            try await viewModel?.searchPictures(with: "plage")
+//
+//            XCTAssertEqual(Error.localizedDescription, "")
+//
+//            self.expectation.fulfill()
+//        }
+//        wait(for: [expectation], timeout: 10.0)
+//    }
+
+
+        //MARK: - Methode
+    private func baseQuery(data: Data?, response: HTTPURLResponse) {
+        expectation = expectation(description: "Expectation")
+
+        let data = data
+
+        MockURLProtocol.requestHandler = { request in
+            let response = response
+            return (response, data)
+        }
     }
 
     func testPerformanceExample() throws {
