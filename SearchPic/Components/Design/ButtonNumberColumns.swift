@@ -15,19 +15,19 @@ struct ButtonNumberColumns: View {
     var body: some View {
         Menu {
             Button {
-                viewModel.numberOfColumns(1)
+                viewModel.ChangeNumberOfColumns(1)
             } label: {
                 Label("1 colonne", systemImage: "rectangle.fill")
                     .foregroundColor(colorScheme == . light ? .black : .fluo)
             }
             Button {
-                viewModel.numberOfColumns(2)
+                viewModel.ChangeNumberOfColumns(2)
             } label: {
                 Label("2 colonnes", systemImage: "rectangle.grid.2x2.fill")
                     .foregroundColor(colorScheme == . light ? .black : .fluo)
             }
             Button {
-                viewModel.numberOfColumns(3)
+                viewModel.ChangeNumberOfColumns(3)
             } label: {
                 Label("3 colonnes", systemImage: "rectangle.grid.3x2.fill")
                     .foregroundColor(colorScheme == . light ? .black : .fluo)

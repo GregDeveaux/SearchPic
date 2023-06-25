@@ -14,7 +14,7 @@ class HomeViewModel: ObservableObject {
     @Published var searchWord: String = ""
     @Published var pictures: [Picture] = []
 
-        // allows to have pictures at launch app chosen random in this list (into French 🇫🇷)
+        // allows to have pictures at launch app chosen random in this list (in French 🇫🇷)
     @Published var randomSearchAtLaunchApp: [String] = ["code", "plage", "disque vinyle", "basketball", "licorne", "chat", "chien", "dragon", "boombox"]
 
         // page number for the pictures group
@@ -40,21 +40,30 @@ class HomeViewModel: ObservableObject {
 
         let (data, response) = try await URLSession.shared.data(from: url)
 
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw SearchPictureError.invalidResponse
-        }
+        if let httpResponse = response as? HTTPURLResponse {
+            switch httpResponse.statusCode {
+                case 200:
+                    do {
+                        print("✅ QUERY_SERVICE: the task received \(String(data: data, encoding: .utf8)!)")
 
-        do {
-            print("✅ QUERY_SERVICE: the task received \(String(data: data, encoding: .utf8)!)")
+                        let decoder = JSONDecoder()
+                        let query = try decoder.decode(Query.self, from: data)
 
-            let decoder = JSONDecoder()
-            let query = try decoder.decode(Query.self, from: data)
+                        await saveThePictures(query: query)
+                    }
+                    catch {
+                        print("🛑 Decoding error: \(error)")
+                        throw SearchPictureError.invalidData
+                    }
+                case 400...451:
+                    throw SearchPictureError.invalidUrl
 
-            await saveThePictures(query: query)
-        }
-        catch {
-            print("🛑 Decoding error: \(error)")
-            throw SearchPictureError.invalidData
+                case 500...511:
+                    throw SearchPictureError.invalidResponse
+
+                default:
+                    return
+            }
         }
     }
 
@@ -81,7 +90,7 @@ class HomeViewModel: ObservableObject {
         print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 📑 Current Page API unsplash -> \(currentPageAPI)")
         print("✅ HOME_VIEW_MODEL/GET_OTHER_PICTURES_PAGES: 🌆 Current number of series -> \(currentIndexPictureDisplayed)")
 
-        if currentIndexPictureDisplayed == pictureNumberPerPage - 3 {
+        if currentIndexPictureDisplayed >= pictureNumberPerPage - 3 {
             currentPageAPI += 1
             pictureNumberPerPage += 10
             try await searchPictures(with: searchWord)
@@ -117,10 +126,10 @@ class HomeViewModel: ObservableObject {
     }
 
 
-        // MARK: - numberOfColumns
+        // MARK: - ChangeNumberOfColumns
         /// Description: Allows to change the presentation of the pictures grid
         /// - Parameter number: number of columns that we wish to show
-    func numberOfColumns(_ number: Int) {
+    func ChangeNumberOfColumns(_ number: Int) {
         columns.removeAll()
 
         numberOfColumns = number

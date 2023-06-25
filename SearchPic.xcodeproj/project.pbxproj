@@ -29,6 +29,7 @@
 		BC561BFF2A3FC52700CDB883 /* SearchPictureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC561BFE2A3FC52700CDB883 /* SearchPictureError.swift */; };
 		BC949C8E2A42538000B6AB0F /* PictureWithFiligrane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */; };
 		BC9C781B2A417F1500090354 /* PictureDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9C781A2A417F1500090354 /* PictureDetailsView.swift */; };
+		BCF65FDE2A4885FD006E4720 /* APIUnsplashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF65FDD2A4885FD006E4720 /* APIUnsplashTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		BC949C8D2A42538000B6AB0F /* PictureWithFiligrane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureWithFiligrane.swift; sourceTree = "<group>"; };
 		BC949C8F2A42679D00B6AB0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BC9C781A2A417F1500090354 /* PictureDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDetailsView.swift; sourceTree = "<group>"; };
+		BCF65FDD2A4885FD006E4720 /* APIUnsplashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUnsplashTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				BC21EA1D2A3DE677009BE426 /* SearchPicTests.swift */,
+				BCF65FDD2A4885FD006E4720 /* APIUnsplashTests.swift */,
 				BC05EBF52A439FD6004274AF /* MockURLProtocol.swift */,
 				BC05EBF72A43A005004274AF /* MockResponseData.swift */,
 				BC561BF92A3EF01E00CDB883 /* API_unsplashPicturesPlage.json */,
@@ -366,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCF65FDE2A4885FD006E4720 /* APIUnsplashTests.swift in Sources */,
 				BC05EBF82A43A005004274AF /* MockResponseData.swift in Sources */,
 				BC21EA1E2A3DE677009BE426 /* SearchPicTests.swift in Sources */,
 				BC05EBF62A439FD6004274AF /* MockURLProtocol.swift in Sources */,

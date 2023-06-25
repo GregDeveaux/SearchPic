@@ -46,7 +46,7 @@ struct HomeView: View {
                     }
             }
             .onAppear{
-                viewModel.numberOfColumns(1)
+                viewModel.ChangeNumberOfColumns(1)
                 Task {
                     if let searchWord = viewModel.randomSearchAtLaunchApp.randomElement() {
                         try await viewModel.searchPictures(with: searchWord)
