@@ -52,13 +52,15 @@ class HomeViewModel: ObservableObject {
                         await saveThePictures(query: query)
                     }
                     catch {
-                        print("🛑 Decoding error: \(error)")
+                        print("🛑 Decoding error: \(String(describing: SearchPictureError.invalidData.errorDescription))")
                         throw SearchPictureError.invalidData
                     }
                 case 400...451:
+                    print("🛑 Decoding error: \(String(describing: SearchPictureError.invalidUrl.errorDescription))")
                     throw SearchPictureError.invalidUrl
 
                 case 500...511:
+                    print("🛑 Decoding error: \(String(describing: SearchPictureError.invalidResponse.errorDescription))")
                     throw SearchPictureError.invalidResponse
 
                 default:
