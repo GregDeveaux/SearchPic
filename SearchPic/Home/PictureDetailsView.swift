@@ -11,11 +11,14 @@ import UIKit
 struct PictureDetailsView: View {
     @Environment(\.colorScheme) private var colorScheme
 
+    @State private var retrieveImage: Image = Image(systemName: "photo")
+    @State private var isSaved: Bool = false
+
     var picture: Picture
 
     var body: some View {
 
-        let pictureWithFiligrane = PictureWithFiligrane(pictureUrl: picture.urls.largeSize)
+        let pictureWithFiligrane = PictureWithFiligrane(retrieveImage: $retrieveImage, pictureUrl: picture.urls.largeSize)
 
         ZStack {
             Color.backgroundPrimary
@@ -48,16 +51,23 @@ struct PictureDetailsView: View {
 
                 HStack(spacing: 20) {
                     Button {
-                            // allows to reate a snapshot of image and save it
-                        let renderer = ImageRenderer(content: pictureWithFiligrane)
-                        let _ = DispatchQueue.main.async {
-                            guard let image = renderer.uiImage else { return }
-                            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                        if !isSaved {
+                                // allows to reate a snapshot of image and save it
+                            let renderer = ImageRenderer(content: retrieveImage)
+                            let _ = DispatchQueue.main.async {
+                                guard let image = renderer.uiImage else { return }
+                                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                            }
+                            isSaved.toggle()
+                            print("✅ PICTURE_DETAILS_VIEW/SAVE_PICTURE: the image is saved")
                         }
-                        print("✅ PICTURE_DETAILS_VIEW/SAVE_PICTURE: the image is saved")
                     }  label: {
-                        Label("Enregistrer", systemImage: "photo")
+                        Label(isSaved ? "" : "Enregistrer", systemImage: isSaved ?  "checkmark.circle.fill" : "photo")
+                            .font(.system(size: isSaved ? 25 : 15))
                             .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 50)
+                    }
+                    .alert(isPresented: $isSaved) {
+                        Alert(title: Text("Tu as bien enregistré la photo"))
                     }
 
                         // allows to share the picture link into max size
