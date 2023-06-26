@@ -62,7 +62,21 @@ final class SearchPicTests: XCTestCase {
         viewModel?.ChangeNumberOfColumns(newNumberOfColumns)
 
         XCTAssertEqual(newNumberOfColumns, viewModel?.numberOfColumns)
-
     }
 
+
+        //MARK: - test HomeViewModel/resetSearchPicture
+    func test_GivenResetCountersForANewResearch() {
+        let currentPageAPI = 1
+        let pictureNumberPerPage = 10
+        viewModel?.currentPageAPI = 2
+        viewModel?.pictureNumberPerPage = 20
+        viewModel?.pictures = Picture.examples
+
+        viewModel?.resetSearchPicture()
+
+        XCTAssertEqual(viewModel?.pictures.count, 0)
+        XCTAssertEqual(currentPageAPI, viewModel?.currentPageAPI)
+        XCTAssertEqual(pictureNumberPerPage, viewModel?.pictureNumberPerPage)
+    }
 }

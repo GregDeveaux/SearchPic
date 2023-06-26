@@ -138,4 +138,13 @@ class HomeViewModel: ObservableObject {
         
         print("✅ HOME_VIEW/ON_APPEAR: change the number of columns at \(numberOfColumns) ")
     }
+
+
+        // MARK: - resetSearchPicture
+        /// Description: Allows to reset counters for API image searches
+    func resetSearchPicture() {
+        pictures.removeAll()
+        currentPageAPI = 1
+        pictureNumberPerPage = 10
+    }
 }

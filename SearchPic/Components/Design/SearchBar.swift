@@ -48,7 +48,8 @@ struct SearchBar: View {
         .onSubmit {
             viewModel.searchWord = searchWord
             Task {
-                viewModel.pictures.removeAll()
+                    // reset the search pictures
+                viewModel.resetSearchPicture()
                 try await viewModel.searchPictures(with: searchWord)
             }
             print("✅ SEARCH_BAR/ON_SUBMIT: change the seach word \(searchWord) ")
